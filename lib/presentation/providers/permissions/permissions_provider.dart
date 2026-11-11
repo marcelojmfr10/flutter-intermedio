@@ -67,7 +67,7 @@ final permissionsProvider =
 class PermissionsNotifier extends Notifier<PermissionsState> {
   @override
   PermissionsState build() {
-    Future.microtask(checkPermissions);
+    // Future.microtask(checkPermissions);
     return PermissionsState();
   }
 
