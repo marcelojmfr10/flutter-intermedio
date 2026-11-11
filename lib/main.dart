@@ -38,6 +38,9 @@ class _MainAppState extends ConsumerState<MainApp> with WidgetsBindingObserver {
     detached: la app fue destruida
     */
     ref.read(appStateProvider.notifier).update(state);
+    if (state == AppLifecycleState.resumed) {
+      ref.read(permissionsProvider.notifier).checkPermissions();
+    }
     super.didChangeAppLifecycleState(state);
   }
 
