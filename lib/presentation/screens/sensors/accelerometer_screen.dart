@@ -7,7 +7,7 @@ class AccelerometerScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final accelerometerGravity$ = ref.watch(accelerometerGravityProvider);
+    // final accelerometerGravity$ = ref.watch(accelerometerGravityProvider);
     final accelerometerUser$ = ref.watch(accelerometerUserProvider);
 
     return Scaffold(
