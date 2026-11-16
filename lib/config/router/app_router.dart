@@ -22,5 +22,22 @@ final appRouter = GoRouter(
       builder: (context, state) => GyroscopeBallScreen(),
     ),
     GoRoute(path: '/compass', builder: (context, state) => CompassScreen()),
+    GoRoute(
+      path: '/pokemons',
+      builder: (context, state) => PokemonsScreen(),
+      routes: [
+        GoRoute(
+          path: ':id',
+          builder: (context, state) {
+            final id = state.pathParameters['id'] ?? '1';
+            return PokemonScreen(pokemonId: id);
+          },
+        ),
+      ],
+    ),
+    // GoRoute(
+    //   path: '/pokemon/:id',
+    //   builder: (context, state) => PokemonsScreen(),
+    // ),
   ],
 );
