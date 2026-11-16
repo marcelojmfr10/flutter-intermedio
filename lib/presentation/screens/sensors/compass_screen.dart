@@ -1,5 +1,7 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
-import 'package:flutter_miscellaneous/presentation/providers/permissions/permissions_provider.dart';
+import 'package:flutter_miscellaneous/presentation/providers/providers.dart';
 import 'package:flutter_miscellaneous/presentation/screens/screens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,6 +11,7 @@ class CompassScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final locationGranted = ref.watch(permissionsProvider).locationGranted;
+    final compassHeading$ = ref.watch(compassProvider);
 
     if (!locationGranted) {
       return AskLocationScreen();
@@ -21,13 +24,49 @@ class CompassScreen extends ConsumerWidget {
         backgroundColor: Colors.black,
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: Center(child: Compass()),
+      body: Center(
+        child: compassHeading$.when(
+          data: (heading) => Compass(heading: heading ?? 0),
+          error: (error, stackTrace) =>
+              Text('$error', style: TextStyle(color: Colors.white)),
+          loading: () => CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 }
 
-class Compass extends StatelessWidget {
-  const new({super.key});
+class Compass extends StatefulWidget {
+  final double heading;
+  const new({super.key, required this.heading});
+
+  @override
+  State<Compass> createState() => _CompassState();
+}
+
+class _CompassState extends State<Compass> {
+  double prevValue = 0.0;
+  double turns = 0;
+
+  double getTurns() {
+    double? direction = widget.heading;
+    direction = (direction < 0) ? (360 + direction) : direction;
+
+    double diff = direction - prevValue;
+    if (diff.abs() > 180) {
+      if (prevValue > direction) {
+        diff = 360 - (direction - prevValue).abs();
+      } else {
+        diff = 360 - (prevValue - direction).abs();
+        diff = diff * -1;
+      }
+    }
+
+    turns += (diff / 360);
+    prevValue = direction;
+
+    return turns * -1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +74,33 @@ class Compass extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text('155', style: TextStyle(color: Colors.white, fontSize: 30)),
-        SizedBox(height: 20),
+        // Text(
+        //   '${widget.heading.ceil()}',
+        //   style: TextStyle(color: Colors.white, fontSize: 30),
+        // ),
+        // SizedBox(height: 20),
         Stack(
           alignment: Alignment.center,
           children: [
-            Image.asset('assets/images/compass/quadrant-1.png'),
+            // Image.asset('assets/images/compass/quadrant-1.png'),
+            // Transform.rotate(
+            //   angle: (heading * (math.pi / 180) * -1),
+            //   child: Image.asset('assets/images/compass/needle-1.png'),
+            // ),
+
+            // AnimatedRotation(
+            //   curve: Curves.easeOut,
+            //   turns: getTurns(),
+            //   duration: Duration(seconds: 1),
+            //   child: Image.asset('assets/images/compass/needle-1.png'),
+            // ),
+            AnimatedRotation(
+              curve: Curves.easeOut,
+              turns: getTurns(),
+              duration: Duration(seconds: 1),
+              child: Image.asset('assets/images/compass/quadrant-1.png'),
+            ),
+
             Image.asset('assets/images/compass/needle-1.png'),
           ],
         ),
