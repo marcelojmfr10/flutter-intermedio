@@ -39,5 +39,9 @@ final appRouter = GoRouter(
     //   path: '/pokemon/:id',
     //   builder: (context, state) => PokemonsScreen(),
     // ),
+    GoRoute(
+      path: '/biometrics',
+      builder: (context, state) => BiometricScreen(),
+    ),
   ],
 );
