@@ -43,5 +43,11 @@ final appRouter = GoRouter(
       path: '/biometrics',
       builder: (context, state) => BiometricScreen(),
     ),
+    GoRoute(path: '/location', builder: (context, state) => LocationScreen()),
+    GoRoute(path: '/maps', builder: (context, state) => MapScreen()),
+    GoRoute(
+      path: '/controlled-map',
+      builder: (context, state) => ControlledMapScreen(),
+    ),
   ],
 );
