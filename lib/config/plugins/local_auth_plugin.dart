@@ -22,11 +22,13 @@ class LocalAuthPlugin {
     return await auth.canCheckBiometrics;
   }
 
-  static Future<(bool, String)> authenticate() async {
+  static Future<(bool, String)> authenticate({
+    bool biometricOnly = false,
+  }) async {
     try {
       final bool didAuthenticate = await auth.authenticate(
         localizedReason: 'Por favor autenticate para continuar',
-        // biometricOnly: true,
+        biometricOnly: biometricOnly,
       );
 
       return (
