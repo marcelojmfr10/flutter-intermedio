@@ -27,6 +27,9 @@
     <key>NSMotionUsageDescription</key>
     <string>Sensors</string>
 
+	<key>NSFaceIDUsageDescription</key>
+	<string>Explain why your app needs Face ID access here.</string>
+
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
