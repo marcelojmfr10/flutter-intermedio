@@ -50,5 +50,13 @@ final appRouter = GoRouter(
       builder: (context, state) => ControlledMapScreen(),
     ),
     GoRoute(path: '/badge', builder: (context, state) => BadgeScreen()),
+    GoRoute(
+      path: '/ad-fullscreen',
+      builder: (context, state) => AdFullScreen(),
+    ),
+    GoRoute(
+      path: '/ad-rewarded',
+      builder: (context, state) => AdRewardedScreen(),
+    ),
   ],
 );
