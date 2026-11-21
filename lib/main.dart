@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  QuickActionsPlugin.registerActions();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(ProviderScope(child: MainApp()));
