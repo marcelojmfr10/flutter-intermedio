@@ -20,6 +20,11 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
+        <!-- Sample AdMob app ID: -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-xxxxxxxxxxxxxxxx~yyyyyyyyyy"/>
+
         <meta-data android:name="com.google.android.geo.API_KEY"
               android:value="YOUR KEY HERE"/>
         <activity
