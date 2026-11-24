@@ -6,3 +6,8 @@ final adBannerProvider = FutureProvider<BannerAd>((ref) async {
   final ad = await AdmobPlugin.loadBannerAd();
   return ad;
 });
+
+final adInterstitialProvider = FutureProvider.autoDispose<InterstitialAd>((ref) async {
+  final ad = await AdmobPlugin.loadInterstitialAd();
+  return ad;
+});
